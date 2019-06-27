@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "440af881-049d-491c-91e0-294bd1da5d18",
+		"name": "piClinicApiClass",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Open piClinic session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed713fa2-ae3d-46f3-aa9c-38838bd026ba",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token\", jsonData.data.token);\r",
+							"\r",
+							"pm.test(\"Login was successful\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"twilio\",\n\t\"password\": \"Twilio!\"\n}"
+				},
+				"url": {
+					"raw": "https://dev.piclinic.org/api/session.php",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"piclinic",
+						"org"
+					],
+					"path": [
+						"api",
+						"session.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get code description by ICD code lookup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0faf650e-1091-40d0-9f6d-06951bcefeef",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Code search succesful\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(jsonData.count).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct codes returned\", function() {\r",
+							"    jsonData.data.forEach(function(item, idx){\r",
+							"        pm.expect(item.icd10code).to.not.eql(undefined);\r",
+							"        pm.expect(item.icd10code).to.not.eql(null);\r",
+							"        if (item.shortDescription.toLowerCase().indexOf('headache') <= 0) {\r",
+							"            console.log('Correct code failed for description: ' + item.shortDescription);\r",
+							"        }\r",
+							"        pm.expect(item.shortDescription.toLowerCase().indexOf('headache')).to.be.above(-1);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-piClinic-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://dev.piclinic.org/api/icd.php?c=R51",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"piclinic",
+						"org"
+					],
+					"path": [
+						"api",
+						"icd.php"
+					],
+					"query": [
+						{
+							"key": "c",
+							"value": "R51"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get code description by ICD code lookup (en)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0faf650e-1091-40d0-9f6d-06951bcefeef",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Code search succesful\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(jsonData.count).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct codes returned\", function() {\r",
+							"    jsonData.data.forEach(function(item, idx){\r",
+							"        pm.expect(item.icd10code).to.not.eql(undefined);\r",
+							"        pm.expect(item.icd10code).to.not.eql(null);\r",
+							"        if (item.shortDescription.toLowerCase().indexOf('headache') <= 0) {\r",
+							"            console.log('Correct code failed for description: ' + item.shortDescription);\r",
+							"        }\r",
+							"        pm.expect(item.shortDescription.toLowerCase().indexOf('headache')).to.be.above(-1);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-piClinic-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://dev.piclinic.org/api/icd.php?c=R51&language=en",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"piclinic",
+						"org"
+					],
+					"path": [
+						"api",
+						"icd.php"
+					],
+					"query": [
+						{
+							"key": "c",
+							"value": "R51"
+						},
+						{
+							"key": "language",
+							"value": "en"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get icd code by description search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0faf650e-1091-40d0-9f6d-06951bcefeef",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Code search succesful\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(jsonData.count).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct codes returned\", function() {\r",
+							"    jsonData.data.forEach(function(item, idx){\r",
+							"        pm.expect(item.icd10code).to.not.eql(undefined);\r",
+							"        pm.expect(item.icd10code).to.not.eql(null);\r",
+							"        if (item.shortDescription.toLowerCase().indexOf('headache') <= 0) {\r",
+							"            console.log('Correct code failed for description: ' + item.shortDescription);\r",
+							"        }\r",
+							"        pm.expect(item.shortDescription.toLowerCase().indexOf('headache')).to.be.above(-1);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-piClinic-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://dev.piclinic.org/api/icd.php?q=headache&language=en",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"piclinic",
+						"org"
+					],
+					"path": [
+						"api",
+						"icd.php"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "headache"
+						},
+						{
+							"key": "language",
+							"value": "en"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Close current session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aaa1cba2-7814-4be5-8931-c54e2dfc4b44",
+						"exec": [
+							"pm.test(\"Logout was successful\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-piClinic-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://dev.piclinic.org/api/session.php",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"piclinic",
+						"org"
+					],
+					"path": [
+						"api",
+						"session.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
