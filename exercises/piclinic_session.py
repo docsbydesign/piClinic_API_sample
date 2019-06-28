@@ -14,7 +14,7 @@ import requests
 #   declare API variables
 #
 piclinic_host = 'https://dev.piclinic.org'
-piclinic_session = piclinic_host + '/api/session.php'
+piclinic_session_url = piclinic_host + '/api/session.php'
 
 
 def open_session (username, password):
@@ -37,7 +37,7 @@ def open_session (username, password):
         #
         #   POST to session to create a new piClinic session
         #
-        session = requests.post(piclinic_session, data=new_session_data)
+        session = requests.post(piclinic_session_url, data=new_session_data)
         # if the request returned data, it should be a JSON string, so try to parse it
         if session.text:
             # parse the response into a DICT object
@@ -81,7 +81,7 @@ def close_session(token):
     }
 
     try:
-        session = requests.delete(piclinic_session, headers=close_session_header)
+        session = requests.delete(piclinic_session_url, headers=close_session_header)
         if session.text:
             # if the request returned data, it should be a JSON string, so try to parse it
             session_data = session.json()
