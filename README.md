@@ -11,5 +11,5 @@ See [piClinic API documentation](https://piclinic.org/api) for more information 
 
 Postman is an API development environment that enables calling a REST API through an interactive console.
 
-The [postman] folder of this repo contains a Postman collection of requests that demonstrate the
+The [postman](https://github.com/docsbydesign/code_lookup_sample/tree/master/postman) folder of this repo contains a Postman collection of requests that demonstrate the
 sequence of piClinic API calls that access the _**icd**_ resource.
