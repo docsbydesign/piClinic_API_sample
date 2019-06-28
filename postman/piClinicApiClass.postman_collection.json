@@ -68,7 +68,7 @@
 						"session.php"
 					]
 				},
-				"description": "Open a new piClinic session and save the `token` in the response as an environment variable for use by subsequent API requests."
+				"description": "Open a new piClinic session and save the `token` in the response as an environment variable for use by subsequent API requests.\n\nSee [piClinic API](https://piclinic.org/api#session-resource) for information about this API."
 			},
 			"response": [
 				{
@@ -210,7 +210,7 @@
 						}
 					]
 				},
-				"description": "Lookup an ICD-10 code to review the response. \n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any supported ICD-10 code as the value for `c`. The ICD-10 code format is something like [A-Z][00-99].[0-9], but not every possible combination represents a supported ICD-10 code."
+				"description": "Lookup an ICD-10 code to review the response. See [piClinic API](https://piclinic.org/api#icd-resource) for information about this API.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any supported ICD-10 code as the value for `c`. The ICD-10 code format is something like [A-Z][00-99].[0-9], but not every possible combination represents a supported ICD-10 code."
 			},
 			"response": [
 				{
@@ -361,7 +361,7 @@
 						}
 					]
 				},
-				"description": "Lookup an ICD-10 code to review the response in English\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any supported ICD-10 code as the value for `c`. The ICD-10 code format is something like [A-Z][00-99].[0-9], but not every possible combination represents a supported ICD-10 code.\n\nThe `language` parameter can be either `en` or `es`."
+				"description": "Lookup an ICD-10 code to review the response in English. See [piClinic API](https://piclinic.org/api#icd-resource) for information about this API.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any supported ICD-10 code as the value for `c`. The ICD-10 code format is something like [A-Z][00-99].[0-9], but not every possible combination represents a supported ICD-10 code.\n\nThe `language` parameter can be either `en` or `es`."
 			},
 			"response": [
 				{
@@ -516,7 +516,7 @@
 						}
 					]
 				},
-				"description": "Search the ICD-10 codes supported in English for those that contain the provided text in the description.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any text string for `q`, but not every possible text string will be found in a supported ICD-10 code.\n\nThe `language` parameter can be either `en` or `es`."
+				"description": "Search the ICD-10 codes supported in English for those that contain the provided text in the description. See [piClinic API](https://piclinic.org/api#icd-resource) for information about this API.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any text string for `q`, but not every possible text string will be found in a supported ICD-10 code.\n\nThe `language` parameter can be either `en` or `es`."
 			},
 			"response": [
 				{
@@ -650,7 +650,7 @@
 						"session.php"
 					]
 				},
-				"description": "Close the session token opened in _**Open piClinic session**_.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nAfter you close the session, you will need to make the  _**Open piClinic session**_ request again before making any of the GET requests in this collection."
+				"description": "Close the session token opened in _**Open piClinic session**_. See [piClinic API](https://piclinic.org/api#session-resource) for information about this API.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nAfter you close the session, you will need to make the  _**Open piClinic session**_ request again before making any of the GET requests in this collection."
 			},
 			"response": [
 				{
