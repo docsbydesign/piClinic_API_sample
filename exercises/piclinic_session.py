@@ -15,7 +15,6 @@ import requests
 #
 piclinic_host = 'https://dev.piclinic.org'
 piclinic_session = piclinic_host + '/api/session.php'
-piclinic_icd = piclinic_host + '/api/cid.php'
 
 
 def open_session (username, password):
