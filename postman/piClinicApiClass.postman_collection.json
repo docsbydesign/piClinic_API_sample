@@ -13,11 +13,28 @@
 					"script": {
 						"id": "ed713fa2-ae3d-46f3-aa9c-38838bd026ba",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"token\", jsonData.data.token);\r",
-							"\r",
+							"/*\r",
+							"*   test status of the call\r",
+							"*/\r",
 							"pm.test(\"Login was successful\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"/*\r",
+							"*  parse the response and save the resulting token\r",
+							"*/\r",
+							"if (responseCode.code == 201) {\r",
+							"    // a valid and successful response was returned so save the token\r",
+							"    //  returned in the response body\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    postman.setEnvironmentVariable(\"token\", jsonData.data.token);\r",
+							"}\r",
+							"/*\r",
+							"*   make sure the token was saved correctly\r",
+							"*/\r",
+							"pm.test(\"Session token was saved to the environment\", function () {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    var savedToken = pm.environment.get('token');\r",
+							"pm.environment.set(\"variable_key\", \"variable_value\");    pm.expect(jsonData.data.token).to.eql(savedToken);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -50,9 +67,89 @@
 						"api",
 						"session.php"
 					]
-				}
+				},
+				"description": "Open a new piClinic session and save the `token` in the response as an environment variable for use by subsequent API requests."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Open piClinic session example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"twilio\",\n\t\"password\": \"Twilio!\"\n}"
+						},
+						"url": {
+							"raw": "https://dev.piclinic.org/api/session.php",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"piclinic",
+								"org"
+							],
+							"path": [
+								"api",
+								"session.php"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 28 Jun 2019 18:07:29 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Response-String",
+							"value": "New session created."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=600, private, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Fri, 28 Jun 2019 18:07:30 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "394"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8;"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 1,\n    \"data\": {\n        \"token\": \"d1ce38d0_0fad_4129_982e_c2178f8865d3\",\n        \"sessionIP\": \"181.115.11.54\",\n        \"sessionUA\": \"PostmanRuntime/7.15.0\",\n        \"username\": \"twilio\",\n        \"loggedIn\": 1,\n        \"accessGranted\": \"ClinicReadOnly\",\n        \"sessionLanguage\": \"en\",\n        \"sessionClinicPublicID\": null,\n        \"createdDate\": \"2019-06-28 14:07:29\",\n        \"expiresOnDate\": \"2019-06-29 14:07:29\"\n    },\n    \"status\": {\n        \"httpResponse\": 201,\n        \"httpReason\": \"New session created.\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "Get code description by ICD code lookup",
@@ -62,23 +159,24 @@
 					"script": {
 						"id": "0faf650e-1091-40d0-9f6d-06951bcefeef",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"\r",
-							"pm.test(\"Code search succesful\", function() {\r",
+							"/*\r",
+							"*   review the response\r",
+							"*/\r",
+							"pm.test(\"Code lookup was succesful\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
-							"    pm.expect(jsonData.count).to.be.above(0);\r",
 							"});\r",
-							"\r",
-							"pm.test(\"Correct codes returned\", function() {\r",
-							"    jsonData.data.forEach(function(item, idx){\r",
-							"        pm.expect(item.icd10code).to.not.eql(undefined);\r",
-							"        pm.expect(item.icd10code).to.not.eql(null);\r",
-							"        if (item.shortDescription.toLowerCase().indexOf('headache') <= 0) {\r",
-							"            console.log('Correct code failed for description: ' + item.shortDescription);\r",
-							"        }\r",
-							"        pm.expect(item.shortDescription.toLowerCase().indexOf('headache')).to.be.above(-1);\r",
+							"/*\r",
+							"*   if the response was successful,\r",
+							"*   make sure at least one icd-10 code object was returned\r",
+							"*/\r",
+							"if (responseCode.code == 200) {\r",
+							"    // if successful, look at the data\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.test(\"At least one ICD-10 code object was returned\", function() {\r",
+							"       pm.expect(jsonData.count).to.be.above(0);\r",
 							"    });\r",
-							"});"
+							"}\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -111,9 +209,94 @@
 							"value": "R51"
 						}
 					]
-				}
+				},
+				"description": "Lookup an ICD-10 code to review the response. \n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any supported ICD-10 code as the value for `c`. The ICD-10 code format is something like [A-Z][00-99].[0-9], but not every possible combination represents a supported ICD-10 code."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get code description by ICD code lookup example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-piClinic-token",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://dev.piclinic.org/api/icd.php?c=R51",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"piclinic",
+								"org"
+							],
+							"path": [
+								"api",
+								"icd.php"
+							],
+							"query": [
+								{
+									"key": "c",
+									"value": "R51"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 28 Jun 2019 18:08:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Debug_SECURITY_AccessStatus",
+							"value": "USER: 4, PAGE: 4"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Response-String",
+							"value": "Success-n"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=600, private, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Fri, 28 Jun 2019 18:08:49 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "314"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8;"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 2,\n    \"data\": [\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"R51\",\n            \"icd10index\": \"R51\",\n            \"shortDescription\": \"Headache\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"es\",\n            \"icd10code\": \"R51\",\n            \"icd10index\": \"R51\",\n            \"shortDescription\": \"Cefalea\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        }\n    ],\n    \"status\": {\n        \"httpResponse\": 200,\n        \"httpReason\": \"Success-n\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "Get code description by ICD code lookup (en)",
@@ -123,23 +306,24 @@
 					"script": {
 						"id": "0faf650e-1091-40d0-9f6d-06951bcefeef",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"\r",
-							"pm.test(\"Code search succesful\", function() {\r",
+							"/*\r",
+							"*   review the response\r",
+							"*/\r",
+							"pm.test(\"Code lookup was succesful\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
-							"    pm.expect(jsonData.count).to.be.above(0);\r",
 							"});\r",
-							"\r",
-							"pm.test(\"Correct codes returned\", function() {\r",
-							"    jsonData.data.forEach(function(item, idx){\r",
-							"        pm.expect(item.icd10code).to.not.eql(undefined);\r",
-							"        pm.expect(item.icd10code).to.not.eql(null);\r",
-							"        if (item.shortDescription.toLowerCase().indexOf('headache') <= 0) {\r",
-							"            console.log('Correct code failed for description: ' + item.shortDescription);\r",
-							"        }\r",
-							"        pm.expect(item.shortDescription.toLowerCase().indexOf('headache')).to.be.above(-1);\r",
+							"/*\r",
+							"*   if the response was successful,\r",
+							"*   make sure at least one icd-10 code object was returned\r",
+							"*/\r",
+							"if (responseCode.code == 200) {\r",
+							"    // if successful, look at the data\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.test(\"At least one ICD-10 code object was returned\", function() {\r",
+							"       pm.expect(jsonData.count).to.be.above(0);\r",
 							"    });\r",
-							"});"
+							"}\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -176,9 +360,98 @@
 							"value": "en"
 						}
 					]
-				}
+				},
+				"description": "Lookup an ICD-10 code to review the response in English\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any supported ICD-10 code as the value for `c`. The ICD-10 code format is something like [A-Z][00-99].[0-9], but not every possible combination represents a supported ICD-10 code.\n\nThe `language` parameter can be either `en` or `es`."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get code description by ICD code lookup (en) example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-piClinic-token",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://dev.piclinic.org/api/icd.php?c=R51&language=en",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"piclinic",
+								"org"
+							],
+							"path": [
+								"api",
+								"icd.php"
+							],
+							"query": [
+								{
+									"key": "c",
+									"value": "R51"
+								},
+								{
+									"key": "language",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 28 Jun 2019 18:09:29 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Debug_SECURITY_AccessStatus",
+							"value": "USER: 4, PAGE: 4"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Response-String",
+							"value": "Success-1"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=600, private, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Fri, 28 Jun 2019 18:09:30 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "193"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8;"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 1,\n    \"data\": {\n        \"language\": \"en\",\n        \"icd10code\": \"R51\",\n        \"icd10index\": \"R51\",\n        \"shortDescription\": \"Headache\",\n        \"useCount\": \"0\",\n        \"lastUsedDate\": null\n    },\n    \"status\": {\n        \"httpResponse\": 200,\n        \"httpReason\": \"Success-1\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "Get icd code by description search",
@@ -188,23 +461,24 @@
 					"script": {
 						"id": "0faf650e-1091-40d0-9f6d-06951bcefeef",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"\r",
-							"pm.test(\"Code search succesful\", function() {\r",
+							"/*\r",
+							"*   review the response\r",
+							"*/\r",
+							"pm.test(\"Code search was succesful\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
-							"    pm.expect(jsonData.count).to.be.above(0);\r",
 							"});\r",
-							"\r",
-							"pm.test(\"Correct codes returned\", function() {\r",
-							"    jsonData.data.forEach(function(item, idx){\r",
-							"        pm.expect(item.icd10code).to.not.eql(undefined);\r",
-							"        pm.expect(item.icd10code).to.not.eql(null);\r",
-							"        if (item.shortDescription.toLowerCase().indexOf('headache') <= 0) {\r",
-							"            console.log('Correct code failed for description: ' + item.shortDescription);\r",
-							"        }\r",
-							"        pm.expect(item.shortDescription.toLowerCase().indexOf('headache')).to.be.above(-1);\r",
+							"/*\r",
+							"*   if the response was successful,\r",
+							"*   make sure at least one icd-10 code object was returned\r",
+							"*/\r",
+							"if (responseCode.code == 200) {\r",
+							"    // if successful, look at the data\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.test(\"At least one ICD-10 code object was returned\", function() {\r",
+							"       pm.expect(jsonData.count).to.be.above(0);\r",
 							"    });\r",
-							"});"
+							"}\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -241,9 +515,98 @@
 							"value": "en"
 						}
 					]
-				}
+				},
+				"description": "Search the ICD-10 codes supported in English for those that contain the provided text in the description.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nYou can enter any text string for `q`, but not every possible text string will be found in a supported ICD-10 code.\n\nThe `language` parameter can be either `en` or `es`."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get icd code by description search example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-piClinic-token",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://dev.piclinic.org/api/icd.php?q=headache&language=en",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"piclinic",
+								"org"
+							],
+							"path": [
+								"api",
+								"icd.php"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "headache"
+								},
+								{
+									"key": "language",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 28 Jun 2019 18:09:51 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Debug_SECURITY_AccessStatus",
+							"value": "USER: 4, PAGE: 4"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Response-String",
+							"value": "Success-n"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=600, private, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Fri, 28 Jun 2019 18:09:52 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1730"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8;"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 11,\n    \"data\": [\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G43.C\",\n            \"icd10index\": \"G43C\",\n            \"shortDescription\": \"Periodic headache syndromes in child or adult\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44\",\n            \"icd10index\": \"G44\",\n            \"shortDescription\": \"Other headache syndromes\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.0\",\n            \"icd10index\": \"G440\",\n            \"shortDescription\": \"Cluster headaches and oth trigeminal autonm cephalgias (TAC)\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.1\",\n            \"icd10index\": \"G441\",\n            \"shortDescription\": \"Vascular headache, not elsewhere classified\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.2\",\n            \"icd10index\": \"G442\",\n            \"shortDescription\": \"Tension-type headache\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.3\",\n            \"icd10index\": \"G443\",\n            \"shortDescription\": \"Post-traumatic headache\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.4\",\n            \"icd10index\": \"G444\",\n            \"shortDescription\": \"Drug-induced headache, not elsewhere classified\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.5\",\n            \"icd10index\": \"G445\",\n            \"shortDescription\": \"Complicated headache syndromes\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"G44.8\",\n            \"icd10index\": \"G448\",\n            \"shortDescription\": \"Other specified headache syndromes\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"O29.4\",\n            \"icd10index\": \"O294\",\n            \"shortDescription\": \"Spinal and epidural anesth induced headache during pregnancy\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        },\n        {\n            \"language\": \"en\",\n            \"icd10code\": \"R51\",\n            \"icd10index\": \"R51\",\n            \"shortDescription\": \"Headache\",\n            \"useCount\": \"0\",\n            \"lastUsedDate\": null\n        }\n    ],\n    \"status\": {\n        \"httpResponse\": 200,\n        \"httpReason\": \"Success-n\"\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "Close current session",
@@ -266,8 +629,8 @@
 				"header": [
 					{
 						"key": "X-piClinic-token",
-						"value": "{{token}}",
-						"type": "text"
+						"type": "text",
+						"value": "{{token}}"
 					}
 				],
 				"body": {
@@ -286,9 +649,88 @@
 						"api",
 						"session.php"
 					]
-				}
+				},
+				"description": "Close the session token opened in _**Open piClinic session**_.\n\nNOTE: Requires a token from the _**Open piClinic session**_ request.\n\nAfter you close the session, you will need to make the  _**Open piClinic session**_ request again before making any of the GET requests in this collection."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Close current session example",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-piClinic-token",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dev.piclinic.org/api/session.php",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"piclinic",
+								"org"
+							],
+							"path": [
+								"api",
+								"session.php"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 28 Jun 2019 18:10:15 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Response-String",
+							"value": "User session deleted."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=600, private, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Fri, 28 Jun 2019 18:10:16 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "92"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8;"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 0,\n    \"data\": \"\",\n    \"status\": {\n        \"httpResponse\": 200,\n        \"httpReason\": \"User session deleted.\"\n    }\n}"
+				}
+			]
 		}
 	]
 }
