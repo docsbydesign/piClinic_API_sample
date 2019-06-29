@@ -53,7 +53,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"twilio\",\n\t\"password\": \"Twilio!\"\n}"
+					"raw": "{\n\t\"username\": \"REPLACE WITH YOUR USERNAME\",\n\t\"password\": \"REPLACE WITH YOUR PASSWORD\"\n}"
 				},
 				"url": {
 					"raw": "https://dev.piclinic.org/api/session.php",
