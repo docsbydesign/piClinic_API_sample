@@ -63,11 +63,13 @@ Open the collection in Postman to see these requests:
 4. Get an ICD code by description search
 5. Close the current piClinic session
 
-Explore each of the examples in Postman by starting with the first request.
+Explore each of the sample requests in Postman by starting with the first one.
 1. Open the request, and click **Send**
 1. Review the response **Body** to see the data returned in the response.
 1. Repeat the previous steps for each request and look at the request description
 of each for additional information about the request.
+
+Note that the piClinic API requires a valid session token to access most of the resources so the first request must be sent first to obtain a valid session token.
 
 ## Making piClinic API calls from within a Python application
 
