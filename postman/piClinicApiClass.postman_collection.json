@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Open piClinic session",
+			"name": "Open a piClinic session",
 			"event": [
 				{
 					"listen": "test",
@@ -152,7 +152,7 @@
 			]
 		},
 		{
-			"name": "Get code description by ICD code lookup",
+			"name": "Get a code description by ICD code lookup",
 			"event": [
 				{
 					"listen": "test",
@@ -299,7 +299,7 @@
 			]
 		},
 		{
-			"name": "Get code description by ICD code lookup (en)",
+			"name": "Get a code description by ICD code lookup (en)",
 			"event": [
 				{
 					"listen": "test",
@@ -454,7 +454,7 @@
 			]
 		},
 		{
-			"name": "Get icd code by description search",
+			"name": "Get an ICD code by description search",
 			"event": [
 				{
 					"listen": "test",
@@ -609,7 +609,7 @@
 			]
 		},
 		{
-			"name": "Close current session",
+			"name": "Close the current piClinic session",
 			"event": [
 				{
 					"listen": "test",
