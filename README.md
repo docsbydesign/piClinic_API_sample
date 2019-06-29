@@ -1,29 +1,31 @@
 # code_lookup_sample
-Sample code that demonstrates the ICD-10 code lookup feature of the piClinic API
+This repo contains code examples that demonstrate the ICD-10 code lookup feature of the piClinic API.
 
-This sample contains two examples of accessing the piClinic API:
-* Making piClinic API calls using [Postman](https://www.getpostman.com/)
+This repo contains two examples that use the piClinic API:
+* Making piClinic API calls from [Postman](https://www.getpostman.com/)
 * Making piClinic API calls from within a Python application
 
 See [piClinic API documentation](https://piclinic.org/api) for more information about the piClinic API.
 
-# Making piClinic API calls using Postman
+After reviewing these examples, you should be familiar with the piClinic API and how to access it from within a Python program.
 
-Postman is an API development environment that enables calling a REST API through an interactive console.
+# Making piClinic API calls from Postman
+
+Postman is an API development environment that lets you call a REST API through an interactive console.
 
 The [postman](https://github.com/docsbydesign/code_lookup_sample/tree/master/postman) folder of this
 repo contains a Postman collection of requests that demonstrate the
-sequence of piClinic API calls that access the _**icd**_ resource.
+sequence of piClinic API calls that an application might use to access the _**icd**_ resource.
 
-The Postman collection demonstrates a typical sequence of piClinic API calls that an application might use.
 This sequence consists of:
 1. Opening a session on the piClinic server and receiving an access token.
-1. Calling a piClinic API. The collection contains several examples of piClinic API calls.
-1. Closing the session when access to the piClinic API is no longer needed.
+1. Calling a piClinic API several times.
+1. Closing the session after access to the piClinic API is no longer needed.
 
 ## Download the repo
 
-Download this repo to your system by clicking the `Clone or download` button above or executing
+Download this repo to access the files directly from your system by
+clicking the `Clone or download` button above or executing
 this `git` command from the folder in which you want to install the files.
 
 ```
@@ -65,4 +67,58 @@ Start with the first request, open it, and click **Send**.
 
 Review the response **Body** to see the response format.
 
-Repeat these two steps for each request. See the request description for additional information about the request.
+Repeat these two steps for each request. Take a look at the request description
+in Postman for additional information about the request.
+
+## Making piClinic API calls from within a Python application
+
+The `exercises` folder contains these Python scripts to demonstrate how to access the
+piClinic API from within an application. Review and run them in this sequence.
+
+1. piclinic_session.py
+1. piclinic_lookup_code.py
+1. piclinic_lookup_code_en.py
+1. piclinic_search_code_en.py
+
+### piclinic_session.py
+
+Opens and closes a piClinic session.
+
+The methods in this script show how to access the **session** resource to
+obtain an access token and close the session when finished. These methods
+will be imported by the other scripts to perform those functions.
+
+This script makes API calls similar to the `Open a piClinic session` and `Close the current piClinic session` requests in the Postman collection.
+
+### piclinic_lookup_code.py
+
+Opens a piClinic session to look up an ICD-10 code and then closes the session.
+
+This script imports the session methods from `piclinic_session.py` and then
+calls the **icd** resource to look up an ICD-10 code and get its description.
+
+This script makes an API call similar to the `Get a code description by ICD code lookup` request in the Postman collection.
+
+Try changing the code value to look up the description of another ICD-10 codes. For example, try looking up the description for ICD-10 code: `J00`.
+
+### piclinic_lookup_code_en.py
+
+Opens a piClinic session to look up an ICD-10 code in English and then closes the session.
+
+This script imports the session methods from `piclinic_session.py` and then
+calls the **icd** resource to look up an ICD-10 code and get its description in English.
+
+This script makes an API call similar to the `Get a code description by ICD code lookup (en)` request in the Postman collection.
+
+Try changing the code value to look up the description of another ICD-10 codes as you did in the previous example.
+
+### piclinic_search_code_en.py
+
+Opens a piClinic session to search for the ICD-10 codes that contain a specific text in English and then closes the session.
+
+This script imports the session methods from `piclinic_session.py` and then
+calls the **icd** resource to search for the ICD-10 codes based on their description in English.
+
+This script makes an API call similar to the `Get an ICD code by description search` request in the Postman collection.
+
+Try changing the search text to look up some other ICD-10 codes.
