@@ -69,12 +69,14 @@ Explore each of the sample requests in Postman by starting with the first one.
 1. Repeat the previous steps for each request and look at the request description
 of each for additional information about the request.
 
-Note that the piClinic API requires a valid session token to access most of the resources so the first request must be sent first to obtain a valid session token.
+**Remember** that the piClinic API requires a valid session token to access most of its resources so the `Open a piClinic session` request must be sent first to obtain a valid session token for the other requests.
 
 ## Making piClinic API calls from within a Python application
 
-The `exercises` folder contains these Python scripts to demonstrate how to access the
-piClinic API from within an application. Review and run them in this sequence.
+The [exercises](https://github.com/docsbydesign/code_lookup_sample/tree/master/exercises) folder
+contains these Python scripts to demonstrate how to access the piClinic API from within an application.
+Use your favorite Python development environment to review and run them in this sequence.
+If you don't have a favorite, you can view them in a text editor and run them from a terminal or console window.
 
 1. piclinic_session.py
 1. piclinic_lookup_code.py

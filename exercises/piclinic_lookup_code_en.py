@@ -12,7 +12,7 @@ import piclinic_session
 
 
 #
-#   declare API variables
+#   declare variables to access the piClinic API
 #
 piclinic_host = 'https://dev.piclinic.org'
 piclinic_session_url = piclinic_host + '/api/session.php'
@@ -25,7 +25,7 @@ def lookup_code(token, code, lang):
     code_data = []
     lookup_data = {}
 
-    # create the token header for access to the API
+    # create the token header to access the API
     lookup_code_headers = {
         'X-piClinic-token': token
     }
@@ -55,11 +55,13 @@ def lookup_code(token, code, lang):
         if lookup_data['count'] == 1:
             # add the data element to an array
             code_data.append(lookup_data['data'])
+
         else:
             # just copy the returned array
             code_data = lookup_data['data']
 
     if code_data:
+        print(str(lookup_data['count']) + " ICD-10 code object(s) returned.")
         for elem in code_data:
             print(elem['icd10code'] + " (" + elem['language'] + "): " + elem['shortDescription'])
 
@@ -72,7 +74,10 @@ def lookup_code(token, code, lang):
 def main(argv):
     #    open a piClinic session using hard-coded credentials
     #       NOTE: this is for demonstration only! You would not
-    #       normally do this outside of an experimental context
+    #       normally include credentials in a program outside of
+    #       an experimental context.
+
+    #  open a new session and get the token
     session_token = piclinic_session.open_session('twilio', 'Twilio!')
     if session_token:
         print("Token returned: " + session_token)

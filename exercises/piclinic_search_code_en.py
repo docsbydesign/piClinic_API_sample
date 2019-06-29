@@ -12,20 +12,20 @@ import piclinic_session
 
 
 #
-#   declare API variables
+#   declare variables to access the piClinic API
 #
 piclinic_host = 'https://dev.piclinic.org'
 piclinic_session_url = piclinic_host + '/api/session.php'
 piclinic_icd_url = piclinic_host + '/api/icd.php'
 
 
-def search_code(token, text, lang):
+def search_codes(token, text, lang):
     # look up an ICD 10 code by it's description and print the matching codes in the specified language
     #
     code_data = []
     search_data = {}
 
-    # create the token header for access to the API
+    # create the token header to access the API
     search_code_headers = {
         'X-piClinic-token': token
     }
@@ -53,13 +53,15 @@ def search_code(token, text, lang):
 
         # convert returned data to an array to simplify subsequent processing
         if search_data['count'] == 1:
-            # add the data element to an array
+            # add the data element to create a 1-element array
             code_data.append(search_data['data'])
+
         else:
             # just copy the returned array
             code_data = search_data['data']
 
     if code_data:
+        print(str(search_data['count']) + " ICD-10 code object(s) returned.")
         for elem in code_data:
             print(elem['icd10code'] + " (" + elem['language'] + "): " + elem['shortDescription'])
 
@@ -72,7 +74,10 @@ def search_code(token, text, lang):
 def main(argv):
     #    open a piClinic session using hard-coded credentials
     #       NOTE: this is for demonstration only! You would not
-    #       normally do this outside of an experimental context
+    #       normally include credentials in a program outside of
+    #       an experimental context.
+
+    #  open a new session and get the token
     session_token = piclinic_session.open_session('twilio', 'Twilio!')
     if session_token:
         print("Token returned: " + session_token)
@@ -81,7 +86,7 @@ def main(argv):
         return
 
     # search the ICD descriptions for "headache" in English and print those that match
-    search_code(session_token, 'headache', 'en')
+    search_codes(session_token, 'headache', 'en')
 
     if session_token:
         print("Closing piClinic session.")

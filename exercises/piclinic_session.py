@@ -11,7 +11,7 @@ import requests
 
 
 #
-#   declare API variables
+#   declare variables to access the piClinic API
 #
 piclinic_host = 'https://dev.piclinic.org'
 piclinic_session_url = piclinic_host + '/api/session.php'
@@ -27,7 +27,7 @@ def open_session (username, password):
     post_status = None
     post_response = "Unable to create a new session."
     #
-    #   data to pass to session
+    #   credential data to pass to session resource
     #
     new_session_data = {
         'username': username,
@@ -45,6 +45,7 @@ def open_session (username, password):
             # save the status information if it's present
             if session_data['status']['httpResponse']:
                 post_status = session_data['status']['httpResponse']
+                # if there's an httpResponse, there's also an httpReason
                 post_response = session_data['status']['httpReason']
 
     except Exception as e:
@@ -60,11 +61,12 @@ def open_session (username, password):
             # which requires different syntax
             session_token = session_data['data']['token']
         # else return None, because something strange happened
+
     else:
-        # 201 means a new session was opened. If it is anything but 201,
+        # if the status is anything but 201,
         #  no new session was created, so display a message.
         print("Sorry, I was unable to log in to the piClinic host.")
-        print("Status : " + str(post_status))
+        print("Status: " + str(post_status))
         print("Reason: " + post_response)
 
     return session_token
@@ -87,6 +89,7 @@ def close_session(token):
             session_data = session.json()
             if session_data['status']['httpResponse'] :
                 delete_status = session_data['status']['httpResponse']
+                # if there's an httpResponse, there's also an httpReason
                 delete_response = session_data['status']['httpReason']
 
     except Exception as e:
@@ -94,7 +97,7 @@ def close_session(token):
         delete_status = str(e)
 
     if delete_status != 200:
-        # 200 = success, so anything else is an error so show a message.
+        # 200 = success, for anything else, show the reason.
         #  However, in most cases, either way the session is closed.
         #  either by this call or a previous one.
         #
@@ -108,7 +111,10 @@ def close_session(token):
 def main(argv):
     #    open a piClinic session using hard-coded credentials
     #       NOTE: this is for demonstration only! You would not
-    #       normally do this outside of an experimental context
+    #       normally include credentials in a program outside of
+    #       an experimental context.
+
+    #  open a new session and get the token
     session_token = open_session('twilio', 'Twilio!')
     if session_token:
         print("Token returned: " + session_token)
@@ -116,9 +122,9 @@ def main(argv):
         print("Session not opened.")
         return
 
-    if session_token:
-        print("Closing piClinic session.")
-        close_session(session_token)
+    # that's all there is to do in this example so close the session and leave.
+    print("Closing piClinic session.")
+    close_session(session_token)
 
     return
 
