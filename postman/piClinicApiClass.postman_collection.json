@@ -26,15 +26,15 @@
 							"    // a valid and successful response was returned so save the token\r",
 							"    //  returned in the response body\r",
 							"    var jsonData = JSON.parse(responseBody);\r",
-							"    postman.setEnvironmentVariable(\"token\", jsonData.data.token);\r",
+							"    pm.variables.set(\"piclinic_token\", jsonData.data.token);\r",
 							"}\r",
 							"/*\r",
 							"*   make sure the token was saved correctly\r",
 							"*/\r",
 							"pm.test(\"Session token was saved to the environment\", function () {\r",
 							"    var jsonData = JSON.parse(responseBody);\r",
-							"    var savedToken = pm.environment.get('token');\r",
-							"pm.environment.set(\"variable_key\", \"variable_value\");    pm.expect(jsonData.data.token).to.eql(savedToken);\r",
+							"    var savedToken = pm.variables.get('piclinic_token');\r",
+							"    pm.expect(jsonData.data.token).to.eql(savedToken);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -188,7 +188,7 @@
 					{
 						"key": "X-piClinic-token",
 						"type": "text",
-						"value": "{{token}}"
+						"value": "{{piclinic_token}}"
 					}
 				],
 				"url": {
@@ -335,7 +335,7 @@
 					{
 						"key": "X-piClinic-token",
 						"type": "text",
-						"value": "{{token}}"
+						"value": "{{piclinic_token}}"
 					}
 				],
 				"url": {
@@ -490,7 +490,7 @@
 					{
 						"key": "X-piClinic-token",
 						"type": "text",
-						"value": "{{token}}"
+						"value": "{{piclinic_token}}"
 					}
 				],
 				"url": {
@@ -630,7 +630,7 @@
 					{
 						"key": "X-piClinic-token",
 						"type": "text",
-						"value": "{{token}}"
+						"value": "{{piclinic_token}}"
 					}
 				],
 				"body": {

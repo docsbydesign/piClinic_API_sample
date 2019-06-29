@@ -7,7 +7,7 @@ This repo contains two examples that use the piClinic API:
 
 See [piClinic API documentation](https://piclinic.org/api) for more information about the piClinic API.
 
-After reviewing these examples, you should be familiar with the piClinic API and how to access it from within a Python program.
+After reviewing these examples, you should be familiar with the piClinic API and be able to access it from within your own Python program.
 
 # Making piClinic API calls from Postman
 
@@ -24,8 +24,7 @@ This sequence consists of:
 
 ## Download the repo
 
-Download this repo to access the files directly from your system by
-clicking the `Clone or download` button above or executing
+You can access the files for the examples from this site, or you can download the repo to access the files directly from your system by clicking the `Clone or download` button above or executing
 this `git` command from the folder in which you want to install the files.
 
 ```
@@ -39,7 +38,7 @@ Opening the collection, requires [Postman](https://www.getpostman.com/) to be in
 Running the examples in the Postman collection can give you a sense of interacting with the API,
 which can help you when you use the API in a program.
 
-If you're not familiar with Postman, review the documentation at [Getting started with Postman](https://learning.getpostman.com/getting-started/).
+If you're new to Postman, review the documentation at [Getting started with Postman](https://learning.getpostman.com/getting-started/).
 
 ### Importing the Postman collection
 
@@ -53,6 +52,7 @@ Open Postman and follow these steps to import the Postman collection:
 ```
 https://raw.githubusercontent.com/docsbydesign/code_lookup_sample/master/postman/piClinicApiClass.postman_collection.json
 ```
+4. Select the **Collections** tab to see the collection you just imported.
 
 ### Running the piClinic API requests in the collection
 
@@ -63,12 +63,11 @@ Open the collection in Postman to see these requests:
 4. Get an ICD code by description search
 5. Close the current piClinic session
 
-Start with the first request, open it, and click **Send**.
-
-Review the response **Body** to see the response format.
-
-Repeat these two steps for each request. Take a look at the request description
-in Postman for additional information about the request.
+Explore each of the examples in Postman by starting with the first request.
+1. Open the request, and click **Send**
+1. Review the response **Body** to see the data returned in the response.
+1. Repeat the previous steps for each request and look at the request description
+of each for additional information about the request.
 
 ## Making piClinic API calls from within a Python application
 
