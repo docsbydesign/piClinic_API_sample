@@ -3,7 +3,7 @@
 #	script to open and close a piclinic session
 #
 #		Command line format:
-#	        piclinic_session.py
+#	        piclinic_session.py username password
 #
 #
 import sys
@@ -17,7 +17,7 @@ piclinic_host = 'https://dev.piclinic.org'
 piclinic_session_url = piclinic_host + '/api/session.php'
 
 
-def open_session (username, password):
+def open_session(username, password):
     #
     #    open a piClinic session
     #       success: return a session token
@@ -25,7 +25,7 @@ def open_session (username, password):
     #
     session_token = None
     post_status = None
-    post_response = "Unable to create a new session."
+    post_reason = "Unable to create a new session."
     #
     #   credential data to pass to session resource
     #
@@ -46,12 +46,12 @@ def open_session (username, password):
             if session_data['status']['httpResponse']:
                 post_status = session_data['status']['httpResponse']
                 # if there's an httpResponse, there's also an httpReason
-                post_response = session_data['status']['httpReason']
+                post_reason = session_data['status']['httpReason']
 
     except Exception as e:
         # if an exception was raised, get the message
         post_status = 500
-        post_response = str(e)
+        post_reason = str(e)
 
     if post_status == 201:
         # 201 means a new session was created so get the token
@@ -67,7 +67,7 @@ def open_session (username, password):
         #  no new session was created, so display a message.
         print("Sorry, I was unable to log in to the piClinic host.")
         print("Status: " + str(post_status))
-        print("Reason: " + post_response)
+        print("Reason: " + post_reason)
 
     return session_token
 
@@ -109,13 +109,25 @@ def close_session(token):
 
 
 def main(argv):
-    #    open a piClinic session using hard-coded credentials
-    #       NOTE: this is for demonstration only! You would not
-    #       normally include credentials in a program outside of
-    #       an experimental context.
+    #    open a piClinic session using the credentials passed in the command line
+
+    username = None
+    password = None
+
+    # read the command line arguments
+    if len(argv) > 2:
+        # there are enough command line arguments to create the credentials
+        username = argv[1]
+        password = argv[2]
+        # any others are ignored
+
+    else:
+        print("I couldn't open a session because you forgot to give me your username and password.")
+        return
 
     #  open a new session and get the token
-    session_token = open_session('twilio', 'Twilio!')
+    print("Opening a piClinic API session for: " + username)
+    session_token = open_session(username, password)
     if session_token:
         print("Token returned: " + session_token)
     else:

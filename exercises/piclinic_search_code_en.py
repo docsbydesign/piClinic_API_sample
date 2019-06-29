@@ -3,7 +3,7 @@
 #	script to look up an ICD-10 code and return its description in English
 #
 #		Command line format:
-#	        piclinic_search_code_en.py
+#	        piclinic_search_code_en.py username password
 #
 #
 import sys
@@ -72,13 +72,26 @@ def search_codes(token, text, lang):
 
 
 def main(argv):
-    #    open a piClinic session using hard-coded credentials
-    #       NOTE: this is for demonstration only! You would not
-    #       normally include credentials in a program outside of
-    #       an experimental context.
+    #    open a piClinic session using the credentials passed in the command line
+
+    username = None
+    password = None
+
+    # read the command line arguments
+    if len(argv) > 2:
+        # there are enough command line arguments to create the credentials
+        username = argv[1]
+        password = argv[2]
+        # any others are ignored
+
+    else:
+        print("I couldn't open a session because you forgot to give me your username and password.")
+        return
 
     #  open a new session and get the token
-    session_token = piclinic_session.open_session('twilio', 'Twilio!')
+    print("Opening a piClinic API session for: " + username)
+    session_token = piclinic_session.open_session(username, password)
+
     if session_token:
         print("Token returned: " + session_token)
     else:
