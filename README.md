@@ -24,11 +24,11 @@ This sequence consists of:
 
 ## Download the repo
 
-You can access the files for the examples from this site, or you can download the repo to access the files directly from your system by clicking the `Clone or download` button above or executing
-this `git` command from the folder in which you want to install the files.
+You can access the files for the examples from this site. You can also download the repo to access the files directly from your system by clicking the `Clone or download` button above or executing
+this `git` command from the folder under which you want to install the files.
 
 ```
-$ git clone git://github.com/docsbydesign/code_lookup_sample.git
+git clone git://github.com/docsbydesign/code_lookup_sample.git
 ```
 
 ## Making piClinic API calls using Postman
@@ -48,7 +48,7 @@ demonstrates the piClinic API.
 Open Postman and follow these steps to import the Postman collection:
 1. Click the **Import** button.
 2. Select the **Import from link** option.
-3. Enter this URL, and then click **Import**
+3. Enter this URL, and then click **Import**.
 ```
 https://raw.githubusercontent.com/docsbydesign/code_lookup_sample/master/postman/piClinicApiClass.postman_collection.json
 ```
@@ -64,10 +64,16 @@ Open the collection in Postman to see these requests:
 5. Close the current piClinic session
 
 Explore each of the sample requests in Postman by starting with the first one.
-1. Open the request, and click **Send**
+1. Open the `Open a piClinic session` request, and then open the request's **Body** tab.
+1. Edit the username and password values and replace:
+  * `REPLACE WITH YOUR USERNAME` with the username you were provided.
+  * `REPLACE WITH YOUR PASSWORD` with the password you were provided.
+1. Click **Save**, and then click **Send**.
 1. Review the response **Body** to see the data returned in the response.
-1. Repeat the previous steps for each request and look at the request description
-of each for additional information about the request.
+
+For each of the other requests listed above:
+1. Open the request and click **Send**.
+2. Review the parameters and the response to get to know the API.
 
 **Remember** that the piClinic API requires a valid session token to access most of its resources so the `Open a piClinic session` request must be sent first to obtain a valid session token for the other requests.
 
@@ -82,6 +88,21 @@ If you don't have a favorite, you can view them in a text editor and run them fr
 1. piclinic_lookup_code.py
 1. piclinic_lookup_code_en.py
 1. piclinic_search_code_en.py
+
+NOTE that these samples run on Python 3 and import the `requests` module.
+If you don't have the `requests` module installed on your system, you can
+install it by running the following command line on your Mac:
+
+```
+python3 -m pip install requests
+```
+or from your PC:
+```
+python -m pip install requests
+```
+
+### credentials
+
 
 ### piclinic_session.py
 
