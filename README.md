@@ -17,9 +17,9 @@ The [postman](https://github.com/docsbydesign/piClinic_API_sample/tree/master/po
 repo contains a Postman collection of requests that demonstrate the
 piClinic API calls that an application could use to access the piClinic API's _**icd**_ resource.
 
-This requests in the collection do the following:
-1. Open a session on the piClinic server and receiving an access token.
-1. Call a piClinic API several times.
+The requests in the collection do the following:
+1. Open a session on the piClinic server and receive an access token.
+1. Call a piClinic API in several different ways.
 1. Close the session after access to the piClinic API is no longer needed.
 
 ## Making piClinic API calls using Postman
@@ -45,7 +45,7 @@ https://raw.githubusercontent.com/docsbydesign/piClinic_API_sample/master/postma
 
 ### Running the piClinic API requests in the collection
 
-Open the collection in Postman to see these requests:
+Open the `piClinicApiClass` collection in Postman to see these requests:
 1. Open a piClinic session
 2. Get a code description by ICD code lookup
 3. Get a code description by ICD code lookup (en)
