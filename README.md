@@ -54,7 +54,7 @@ Open the `piClinicApiClass` collection in Postman to see these requests:
 
 #### Adding your credentials
 
-Access to the piClinic API is password protected, so your first step is add your credentials to the sample.
+Access to the piClinic API is password protected, so you must first add your credentials to the sample.
 
 **BE CAREFUL!** You do not want to save your credentials in a public folder or repo! (Don't ask me how I know this.)
 
@@ -63,13 +63,13 @@ Access to the piClinic API is password protected, so your first step is add your
   * `REPLACE WITH YOUR USERNAME` with the username you were provided.
   * `REPLACE WITH YOUR PASSWORD` with the password you were provided.
 1. Click **Send**.
-1. Review the response **Body** to see the data returned in the response. You should see a `data` object similar to the one in the documentation and a `status` object that indicates success.
+1. Review the response **Body** to see the data returned in the response. You should see a `data` object similar to the one in [the documentation](https://piclinic.org/api/#post-response-example) and a `status` object that indicates success.
 
 #### Exploring the examples
 
 After you have provided your credentials and run the first request,
 run the remaining samples in order. Each of the subsequent requests uses the access token
-that the first request created and saved. You can see in in the request's **Headers** tab.
+that the first request created and saved. You can see the token header in the request's **Headers** tab.
 
 For each of the other requests in the collection:
 
@@ -125,7 +125,7 @@ In a terminal or command window, you enter them on the command line after the sc
 <script_name.py> username password
 ```
 
-For example, to run the `piclinic_lookup_code.py` script from the command line, you would enter the following command line replacing `username` and `password` with the username and password you were provided.
+For example, to run the `piclinic_lookup_code.py` script from the command line, you would enter the following command line, replacing `username` and `password` with the username and password you were provided.
 
 ```
 piclinic_lookup_code.py username password
@@ -150,7 +150,9 @@ calls the **icd** resource to look up an ICD-10 code and get its description.
 
 This script makes an API call similar to the `Get a code description by ICD code lookup` request in the Postman collection.
 
-Try changing the code value to look up the description of another ICD-10 codes. For example, try looking up the description for ICD-10 code: `J00`.
+Try changing the code value to look up the description of another ICD-10 codes.
+For example, try looking up the description for ICD-10 code: `J00` or have it accept a code as another
+command line parameter.
 
 #### piclinic_lookup_code_en.py
 
