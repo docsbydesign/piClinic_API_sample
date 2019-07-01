@@ -63,7 +63,7 @@ Access to the piClinic API is password protected, so you must first add your cre
   * `REPLACE WITH YOUR USERNAME` with the username you were provided.
   * `REPLACE WITH YOUR PASSWORD` with the password you were provided.
 1. Click **Send**.
-1. Review the response **Body** to see the data returned in the response. You should see a `data` object similar to the one in [the documentation](https://piclinic.org/api/#post-response-example) and a `status` object that indicates success.
+1. Review the response **Body** to see the data returned in the response. You should see a `data` object like the one in [the documentation](https://piclinic.org/api/#post-response-example) and a `status` object that indicates success.
 
 #### Exploring the examples
 
@@ -139,16 +139,16 @@ The methods in this script show how to access the **session** resource to
 obtain an access token and close the session when finished. These methods
 will be imported by the other scripts to perform those functions.
 
-This script makes API calls similar to the `Open a piClinic session` and `Close the current piClinic session` requests in the Postman collection.
+This script makes API calls like the `Open a piClinic session` and `Close the current piClinic session` requests in the Postman collection.
 
 #### piclinic_lookup_code.py
 
 Opens a piClinic session to look up an ICD-10 code and then closes the session.
 
 This script imports the session methods from `piclinic_session.py` and then
-calls the **icd** resource to look up an ICD-10 code and get its description.
+calls the _**icd**_ resource to look up an ICD-10 code and get its description.
 
-This script makes an API call similar to the `Get a code description by ICD code lookup` request in the Postman collection.
+This script makes an API call like the `Get a code description by ICD code lookup` request in the Postman collection.
 
 Try changing the code value to look up the description of another ICD-10 codes.
 For example, try looking up the description for ICD-10 code: `J00` or have it accept a code as another
@@ -159,9 +159,9 @@ command line parameter.
 Opens a piClinic session to look up an ICD-10 code in English and then closes the session.
 
 This script imports the session methods from `piclinic_session.py` and then
-calls the **icd** resource to look up an ICD-10 code and get its description in English.
+calls the _**icd**_ resource to look up an ICD-10 code and get its description in English.
 
-This script makes an API call similar to the `Get a code description by ICD code lookup (en)` request in the Postman collection.
+This script makes an API call like the `Get a code description by ICD code lookup (en)` request in the Postman collection.
 
 Try changing the code value to look up the description of another ICD-10 codes as you did in the previous example.
 
@@ -170,9 +170,9 @@ Try changing the code value to look up the description of another ICD-10 codes a
 Opens a piClinic session to search for the ICD-10 codes that contain a specific text in English and then closes the session.
 
 This script imports the session methods from `piclinic_session.py` and then
-calls the **icd** resource to search for the ICD-10 codes based on their description in English.
+calls the _**icd**_ resource to search for the ICD-10 codes based on their description in English.
 
-This script makes an API call similar to the `Get an ICD code by description search` request in the Postman collection.
+This script makes an API call like the `Get an ICD code by description search` request in the Postman collection.
 
 Try changing the search text to look up some other ICD-10 codes.
 
