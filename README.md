@@ -7,7 +7,7 @@ This repo contains two examples that use the piClinic API:
 
 Also, check out the [piClinic API documentation](https://piclinic.org/api).
 
-After you try these examples, you should be familiar with the piClinic API and be able to access it from within your own Python programs.
+After you try these examples, you will be familiar with the piClinic API and be able to access it from within your own Python programs.
 
 # Making piClinic API calls from Postman
 
@@ -63,7 +63,7 @@ Access to the piClinic API is password protected, so your first step is add your
   * `REPLACE WITH YOUR USERNAME` with the username you were provided.
   * `REPLACE WITH YOUR PASSWORD` with the password you were provided.
 1. Click **Send**.
-1. Review the response **Body** to see the data returned in the response.
+1. Review the response **Body** to see the data returned in the response. You should see a `data` object similar to the one in the documentation and a `status` object that indicates success.
 
 #### Exploring the examples
 
