@@ -13,7 +13,7 @@ After you try these examples, you will be familiar with the piClinic API and be 
 
 Postman is an API development environment that lets you call a REST API through an interactive console.
 
-The [postman](https://github.com/docsbydesign/piClinic_API_sample/tree/master/postman) folder of this
+The [Postman_examples](https://github.com/docsbydesign/piClinic_API_sample/tree/master/Postman_examples) folder of this
 repo contains a Postman collection of requests that demonstrate the
 piClinic API calls that an application could use to access the piClinic API's _**icd**_ resource.
 
@@ -39,7 +39,7 @@ To import the Postman collection, Open Postman and:
 2. Select the **Import from link** option.
 3. Enter this URL, and then click **Import**.
 ```
-https://raw.githubusercontent.com/docsbydesign/piClinic_API_sample/master/postman/piClinicApiClass.postman_collection.json
+https://raw.githubusercontent.com/docsbydesign/piClinic_API_sample/master/Postman_examples/piClinicApiClass.postman_collection.json
 ```
 4. Select the **Collections** tab to see the collection you just imported.
 
@@ -68,7 +68,10 @@ Access to the piClinic API is password protected, so your first step is add your
 #### Exploring the examples
 
 After you have provided your credentials and run the first request,
-run the remaining samples in order. For each of the other requests in the collection:
+run the remaining samples in order. Each of the subsequent requests uses the access token
+that the first request created and saved. You can see in in the request's **Headers** tab.
+
+For each of the other requests in the collection:
 
 1. Open the request and click **Send**.
 2. Review the parameters and the response to get to know the API.
@@ -79,7 +82,7 @@ most of its resources so the `Open a piClinic session` request must be sent
 
 ## Making piClinic API calls from within a Python application
 
-The [exercises](https://github.com/docsbydesign/piClinic_API_sample/tree/master/exercises) folder
+The [Python_examples](https://github.com/docsbydesign/piClinic_API_sample/tree/master/Python_examples) folder
 contains these Python scripts to demonstrate how you can access the piClinic API from within an application.
 
 Use your favorite Python development environment to review and run them in the following sequence.
