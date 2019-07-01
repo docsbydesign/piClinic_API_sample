@@ -5,9 +5,9 @@ This repo contains two examples that use the piClinic API:
 * Making piClinic API calls from [Postman](https://www.getpostman.com/)
 * Making piClinic API calls from within a Python application
 
-See [piClinic API documentation](https://piclinic.org/api) for more information about the piClinic API.
+Also, check out the [piClinic API documentation](https://piclinic.org/api).
 
-After reviewing these examples, you should be familiar with the piClinic API and be able to access it from within your own Python program.
+After you try these examples, you should be familiar with the piClinic API and be able to access it from within your own Python programs.
 
 # Making piClinic API calls from Postman
 
@@ -15,28 +15,26 @@ Postman is an API development environment that lets you call a REST API through 
 
 The [postman](https://github.com/docsbydesign/piClinic_API_sample/tree/master/postman) folder of this
 repo contains a Postman collection of requests that demonstrate the
-piClinic API calls an application could use to access the piClinic API's _**icd**_ resource.
+piClinic API calls that an application could use to access the piClinic API's _**icd**_ resource.
 
-This requests in the collection include:
-1. Opening a session on the piClinic server and receiving an access token.
-1. Calling a piClinic API several times.
-1. Closing the session after access to the piClinic API is no longer needed.
+This requests in the collection do the following:
+1. Open a session on the piClinic server and receiving an access token.
+1. Call a piClinic API several times.
+1. Close the session after access to the piClinic API is no longer needed.
 
 ## Making piClinic API calls using Postman
-
-Opening the collection, requires [Postman](https://www.getpostman.com/) to be installed on your system.
 
 Running the examples in the Postman collection can give you a sense of interacting with the API,
 which can help you when you use the API in a program.
 
-If you're new to Postman, review the documentation at [Getting started with Postman](https://learning.getpostman.com/getting-started/).
+The collection requires [Postman](https://www.getpostman.com/). If you're new to Postman,
+review [Getting started with Postman](https://learning.getpostman.com/getting-started/) to learn more about it.
 
 ### Importing the Postman collection
 
-A Postman collection is a set of API requests that can be made from Postman. This collection
-demonstrates the piClinic API.
+A Postman collection is a set of API requests that can be made from within Postman.
 
-Open Postman and follow these steps to import the Postman collection:
+To import the Postman collection, Open Postman and:
 1. Click the **Import** button.
 2. Select the **Import from link** option.
 3. Enter this URL, and then click **Import**.
@@ -58,7 +56,7 @@ Open the collection in Postman to see these requests:
 
 Access to the piClinic API is password protected, so your first step is add your credentials to the sample.
 
-**BE CAREFUL!** You do not want to save your credentials in a public folder or repo!
+**BE CAREFUL!** You do not want to save your credentials in a public folder or repo! (Don't ask me how I know this.)
 
 1. Open the `Open a piClinic session` request, and then open the request's **Body** tab.
 1. Edit the username and password values and replace:
@@ -69,19 +67,23 @@ Access to the piClinic API is password protected, so your first step is add your
 
 #### Exploring the examples
 
-After you have provided your credentials, run the remaining samples. For each of the other requests in the collection:
+After you have provided your credentials and run the first request,
+run the remaining samples in order. For each of the other requests in the collection:
+
 1. Open the request and click **Send**.
 2. Review the parameters and the response to get to know the API.
 
-**Remember** that the piClinic API requires a valid session token to access most of its resources so the `Open a piClinic session` request must be sent first to obtain a valid session token for the other requests.
+**Remember** that the piClinic API requires a valid session token to access
+most of its resources so the `Open a piClinic session` request must be sent
+ first to obtain a valid session token for the other requests.
 
 ## Making piClinic API calls from within a Python application
 
 The [exercises](https://github.com/docsbydesign/piClinic_API_sample/tree/master/exercises) folder
 contains these Python scripts to demonstrate how you can access the piClinic API from within an application.
 
-Use your favorite Python development environment to review and run them in this sequence.
-If you don't have a favorite, you can view them in a text editor and run them from a terminal or console window.
+Use your favorite Python development environment to review and run them in the following sequence.
+If you don't have a favorite Python environment, you can always view them in a text editor and run them from a terminal or command window.
 
 1. piclinic_session.py
 1. piclinic_lookup_code.py
@@ -101,9 +103,10 @@ or on your PC:
 ```
 python -m pip install requests
 ```
+
 ### Downloading the code examples
 
-You can download the repo to access the files directly from your system by clicking the `Clone or download` button above or executing
+You can download this repo to access the files directly from your system by clicking the `Clone or download` button above or executing
 this `git` command from the folder under which you want to install the files.
 
 ```
@@ -112,7 +115,8 @@ git clone git://github.com/docsbydesign/piClinic_API_sample.git
 
 ### Running the Python examples
 
-Each of the scripts requires the username and password you were provided, and they are entered on the command line after the script name as:
+Each of the scripts requires the username and password you were provided.
+In a terminal or command window, you enter them on the command line after the script name as:
 
 ```
 <script_name.py> username password
@@ -166,3 +170,8 @@ calls the **icd** resource to search for the ICD-10 codes based on their descrip
 This script makes an API call similar to the `Get an ICD code by description search` request in the Postman collection.
 
 Try changing the search text to look up some other ICD-10 codes.
+
+## Where to next?
+
+Now that you know how to access the piClinic API, you can access its features from your application to help make it easier
+for your customers correctly code their medical diagnoses.
