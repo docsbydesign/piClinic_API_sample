@@ -1,4 +1,5 @@
 # piClinic_API_sample
+
 This repo contains code examples that demonstrate the ICD-10 code lookup feature of the piClinic API.
 
 There are two examples that demonstrate the piClinic API:
@@ -11,10 +12,8 @@ After you review these examples and try them out, you will be familiar with the 
 
 # Making piClinic API calls from Postman
 
-Postman is an API development environment that lets you call a REST API through an interactive console.
-
-The [Postman_examples](https://github.com/docsbydesign/piClinic_API_sample/tree/master/Postman_examples) folder of this
-repo contains a Postman collection of requests that demonstrate the
+The [Postman_examples](https://github.com/docsbydesign/piClinic_API_sample/tree/master/Postman_examples)
+folder contains a Postman collection of requests that demonstrate the
 piClinic API calls that an application could use to access the piClinic API's _**icd**_ resource.
 
 The requests in the collection do the following:
@@ -24,17 +23,17 @@ The requests in the collection do the following:
 
 ## Using Postman
 
-Running the examples in the Postman collection can give you a sense of interacting with the API,
-which can help you when you use the API in a program.
+Running the examples in the Postman collection can give you a sense of interacting with the API
+before you use it in a program.
 
-The collection requires [Postman](https://www.getpostman.com/). If you're new to Postman,
+If you're new to [Postman](https://www.getpostman.com/),
 review [Getting started with Postman](https://learning.getpostman.com/getting-started/) to learn more about it.
 
 ## Importing the Postman collection
 
-A Postman collection is a set of API requests that can be made from within Postman.
+A Postman collection is a set of API requests made from within Postman.
 
-To import the Postman collection, Open Postman and:
+To import the Postman collection, open Postman and:
 1. Click the **Import** button.
 2. Select the **Import from link** option.
 3. Enter this URL, and then click **Import**.
