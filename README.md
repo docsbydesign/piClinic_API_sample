@@ -1,7 +1,7 @@
 # piClinic_API_sample
 This repo contains code examples that demonstrate the ICD-10 code lookup feature of the piClinic API.
 
-This repo contains two examples that use the piClinic API:
+There are two examples that demonstrate the piClinic API:
 * Making piClinic API calls from [Postman](https://www.getpostman.com/)
 * Making piClinic API calls from within a Python application
 
