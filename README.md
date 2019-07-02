@@ -74,7 +74,7 @@ For each of the other requests in the collection:
 
 1. Open the request and click **Send**.
 2. Review the parameters and the response to get to know the API.
-3. Experiment by changing the parameters and view the results.
+3. Experiment by changing the parameters and viewing the results.
 
 **Remember** that the piClinic API requires a valid session token to access
 most of its resources so the `Open a piClinic session` request must be sent
@@ -139,6 +139,14 @@ The methods in this script show how to access the **session** resource to
 obtain an access token and close the session when finished. These methods
 will be imported by the other scripts to perform those functions.
 
+The script should write something similar to this if everything works (the username and token value might differ).
+
+```
+Opening a piClinic API session for: Username
+Token returned: 7f7c05f5_02bb_4aa6_8970_717982892f66
+Closing piClinic session.
+```
+
 This script makes API calls like the `Open a piClinic session` and `Close the current piClinic session` requests in the Postman collection.
 
 ### piclinic_lookup_code.py
@@ -147,6 +155,18 @@ Opens a piClinic session to look up an ICD-10 code and then closes the session.
 
 This script imports the session methods from `piclinic_session.py` and then
 calls the _**icd**_ resource to look up an ICD-10 code and get its description.
+
+The script should write something similar to this if everything works (the username and token value might differ).
+
+```
+Opening a piClinic API session for: Username
+Token returned: c267c001_b428_4872_8471_d3244c0c1c53
+URL: https://dev.piclinic.org/api/icd.php?c=R51
+2 ICD-10 code object(s) returned.
+R51 (en): Headache
+R51 (es): Cefalea
+Closing piClinic session.
+```
 
 This script makes an API call like the `Get a code description by ICD code lookup` request in the Postman collection.
 
@@ -161,6 +181,17 @@ Opens a piClinic session to look up an ICD-10 code in English and then closes th
 This script imports the session methods from `piclinic_session.py` and then
 calls the _**icd**_ resource to look up an ICD-10 code and get its description in English.
 
+The script should write something similar to this if everything works (the username and token value might differ).
+
+```
+Opening a piClinic API session for: Username
+Token returned: b40a712f_e8c3_46f6_9d7d_fa68893f243f
+URL: https://dev.piclinic.org/api/icd.php?c=R51&language=en
+1 ICD-10 code object(s) returned.
+R51 (en): Headache
+Closing piClinic session.
+```
+
 This script makes an API call like the `Get a code description by ICD code lookup (en)` request in the Postman collection.
 
 Try changing the code value to look up the description of another ICD-10 codes as you did in the previous example.
@@ -171,6 +202,27 @@ Opens a piClinic session to search for the ICD-10 codes that contain a specific 
 
 This script imports the session methods from `piclinic_session.py` and then
 calls the _**icd**_ resource to search for the ICD-10 codes based on their description in English.
+
+The script should write something similar to this if everything works (the username and token value might differ).
+
+```
+Opening a piClinic API session for: Username
+Token returned: 86c0b97e_e442_41ba_a5e5_e056cbc7949f
+URL: https://dev.piclinic.org/api/icd.php?q=headache&language=en
+11 ICD-10 code object(s) returned.
+G43.C (en): Periodic headache syndromes in child or adult
+G44 (en): Other headache syndromes
+G44.0 (en): Cluster headaches and oth trigeminal autonm cephalgias (TAC)
+G44.1 (en): Vascular headache, not elsewhere classified
+G44.2 (en): Tension-type headache
+G44.3 (en): Post-traumatic headache
+G44.4 (en): Drug-induced headache, not elsewhere classified
+G44.5 (en): Complicated headache syndromes
+G44.8 (en): Other specified headache syndromes
+O29.4 (en): Spinal and epidural anesth induced headache during pregnancy
+R51 (en): Headache
+Closing piClinic session.
+```
 
 This script makes an API call like the `Get an ICD code by description search` request in the Postman collection.
 
