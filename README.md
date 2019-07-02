@@ -74,6 +74,7 @@ For each of the other requests in the collection:
 
 1. Open the request and click **Send**.
 2. Review the parameters and the response to get to know the API.
+3. Experiment by changing the parameters and view the results.
 
 **Remember** that the piClinic API requires a valid session token to access
 most of its resources so the `Open a piClinic session` request must be sent
