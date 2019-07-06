@@ -39,8 +39,11 @@ def open_session(username, password):
         #
         session = requests.post(piclinic_session_url, data=new_session_data)
         # if the request returned data, it should be a JSON string, so try to parse it
+        # check for a response instead of a successful status code to catch and display
+        # error responses as well as successful ones.
         if session.text:
-            # parse the response into a DICT object
+            # parse the response
+            # if this doesn't work, the exception handler will catch it
             session_data = session.json()
             # save the status information if it's present
             if session_data['status']['httpResponse']:
