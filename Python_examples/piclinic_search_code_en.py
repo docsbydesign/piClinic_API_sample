@@ -57,7 +57,7 @@ def search_codes(token, text, lang):
             code_data.append(search_data['data'])
 
         else:
-            # just copy the returned array
+            # just reference the returned array
             code_data = search_data['data']
 
     if code_data:

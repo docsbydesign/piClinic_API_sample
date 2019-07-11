@@ -57,7 +57,7 @@ def lookup_code(token, code, lang):
             code_data.append(lookup_data['data'])
 
         else:
-            # just copy the returned array
+            # just reference the returned array
             code_data = lookup_data['data']
 
     if code_data:
